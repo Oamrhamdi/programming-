@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة البرمجة - كلية الحسابات والمعلومات</title>
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --red: #ff5555;
+            --yellow: #ffff66;
+            --green: #55ff55;
+            --blue: #5555ff;
+            --purple: #cc66ff;
+            --orange: #ff9966;
+            --cyan: #66ffff;
+            --pink: #ff66cc;
+            --teal: #00cccc;
+            --lime: #99ff33;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #222, #000);
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+        
+        h1 {
+            color: var(--yellow);
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255,255,102,0.3);
+        }
+        
+        .subtitle {
+            color: var(--cyan);
+            font-size: 1.2rem;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #333, #666);
+            border-radius: 50%;
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--yellow);
+            border: 3px solid var(--yellow);
+        }
+        
+        .progress-container {
+            flex-grow: 1;
+        }
+        
+        .progress-bar {
+            height: 25px;
+            background-color: #333;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #444;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--orange));
+            border-radius: 12px;
+            width: 30%;
+            transition: width 0.5s ease;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat {
+            background-color: #252525;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        
+        .stat-value {
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .course-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        
+        .course-card h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        /* ألوان المواد */
+        .html { color: var(--red); border-color: var(--red); }
+        .css { color: var(--blue); border-color: var(--blue); }
+        .js { color: var(--yellow); border-color: var(--yellow); }
+        .python { color: var(--green); border-color: var(--green); }
+        .java { color: var(--orange); border-color: var(--orange); }
+        .cpp { color: var(--cyan); border-color: var(--cyan); }
+        .csharp { color: var(--purple); border-color: var(--purple); }
+        .php { color: var(--pink); border-color: var(--pink); }
+        .ruby { color: var(--red); border-color: var(--red); }
+        .swift { color: var(--orange); border-color: var(--orange); }
+        .kotlin { color: var(--blue); border-color: var(--blue); }
+        .go { color: var(--cyan); border-color: var(--cyan); }
+        .rust { color: var(--orange); border-color: var(--orange); }
+        .dart { color: var(--teal); border-color: var(--teal); }
+        .r { color: var(--blue); border-color: var(--blue); }
+        .scala { color: var(--red); border-color: var(--red); }
+        .perl { color: var(--lime); border-color: var(--lime); }
+        .database { color: var(--pink); border-color: var(--pink); }
+        .algorithms { color: var(--purple); border-color: var(--purple); }
+        .networks { color: var(--blue); border-color: var(--blue); }
+        .os { color: var(--orange); border-color: var(--orange); }
+        .ai { color: var(--green); border-color: var(--green); }
+        .security { color: var(--red); border-color: var(--red); }
+        .math { color: var(--yellow); border-color: var(--yellow); }
+        .ds { color: var(--cyan); border-color: var(--cyan); }
+        .react { color: var(--cyan); border-color: var(--cyan); }
+        .angular { color: var(--red); border-color: var(--red); }
+        .vue { color: var(--green); border-color: var(--green); }
+        .nodejs { color: var(--lime); border-color: var(--lime); }
+        .flutter { color: var(--teal); border-color: var(--teal); }
+        
+        .course-progress {
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .course-progress-fill {
+            height: 100%;
+            border-radius: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+        
+        .btn-start {
+            background: linear-gradient(135deg, var(--green), #00cc00);
+            color: black;
+        }
+        
+        .btn-video {
+            background: linear-gradient(135deg, var(--red), #cc0000);
+            color: white;
+        }
+        
+        .btn-video2 {
+            background: linear-gradient(135deg, var(--blue), #0000cc);
+            color: white;
+        }
+        
+        .btn-video3 {
+            background: linear-gradient(135deg, var(--yellow), #cccc00);
+            color: black;
+        }
+        
+        .btn-video4 {
+            background: linear-gradient(135deg, var(--purple), #6600cc);
+            color: white;
+        }
+        
+        .btn-video5 {
+            background: linear-gradient(135deg, var(--cyan), #006666);
+            color: black;
+        }
+        
+        .locked {
+            opacity: 0.7;
+            position: relative;
+        }
+        
+        .locked::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.7);
+            border-radius: 15px;
+        }
+        
+        .badges-container {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+        
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #333, #555);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .badge:hover {
+            transform: scale(1.1);
+        }
+        
+        .badge-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .badge:hover .badge-tooltip {
+            opacity: 1;
+        }
+        
+        .locked-badge {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+        
+        .video-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .locked-info {
+            position: relative;
+            z-index: 2;
+            color: var(--yellow);
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .avatar {
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-laptop-code"></i> لعبة البرمجة الشاملة</h1>
+            <p class="subtitle">تعلم جميع لغات البرمجة ومواد كلية الحسابات والمعلومات</p>
+        </header>
+        
+        <div class="profile">
+            <div class="avatar">👨‍💻</div>
+            <div class="progress-container">
+                <h2>مرحباً، <span style="color: var(--yellow)">المبرمج</span>!</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="xp-bar"></div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div>المستوى</div>
+                        <div class="stat-value" id="level">1</div>
+                    </div>
+                    <div class="stat">
+                        <div>النقاط</div>
+                        <div class="stat-value" id="xp">0</div>
+                    </div>
+                    <div class="stat">
+                        <div>الكورسات المكتملة</div>
+                        <div class="stat-value" id="completed-courses">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="badges-container">
+            <h2 style="color: var(--yellow)">شاراتي <i class="fas fa-award"></i></h2>
+            <div class="badges-grid" id="badges-container"></div>
+        </div>
+        
+        <h2 style="color: var(--cyan); border-bottom: 2px solid var(--cyan); padding-bottom: 10px;">
+            <i class="fas fa-code"></i> لغات البرمجة ومواد الكلية
+        </h2>
+        <div class="courses-container" id="courses-container"></div>
+    </div>
+
+    <script>
+        // بيانات اللاعب
+        const player = {
+            name: "المبرمج",
+            xp: 0,
+            level: 1,
+            badges: [],
+            completedTasks: {},
+            unlockedCourses: ['html', 'css', 'js', 'cpp', 'math']
+        };
+        
+        // جميع لغات البرمجة ومواد الكلية
+        const allCourses = {
+            // لغات الويب الأساسية
+            html: {
+                name: "HTML",
+                colorClass: "html",
+                icon: "🅷",
+                description: "لغة ترميز النص التشعبي لإنشاء هيكل صفحات الويب",
+                tasks: [
+                    "إنشاء أول صفحة HTML",
+                    "إضافة العناوين والفقرات",
+                    "إنشاء قوائم",
+                    "إضافة روابط وصور",
+                    "بناء جدول بسيط"
+                ],
+                rewards: [10, 15, 20, 25, 30],
+                videoLinks: [
+                    "https://youtu.be/ok-plXXHlWw", // HTML كامل للمبتدئين
+                    "https://youtu.be/6QAELgirvjs", // تعلم HTML في ساعة
+                    "https://youtu.be/1Rs2ND1ryYc", // مشاريع HTML للمبتدئين
+                    "https://youtu.be/UB1O30fR-EE", // أساسيات HTML
+                    "https://youtu.be/pQN-pnXPaVg"  // HTML5 كامل
+                ]
+            },
+            css: {
+                name: "CSS",
+                colorClass: "css",
+                icon: "🅲",
+                description: "لغة تنسيق صفحات الويب لعرض جميل",
+                tasks: [
+                    "إضافة أنماط أساسية",
+                    "تنسيق النصوص",
+                    "عملية التصميم باستخدام Flexbox",
+                    "التصميم باستخدام Grid",
+                    "إضافة تأثيرات حركية"
+                ],
+                rewards: [15, 20, 25, 30, 35],
+                videoLinks: [
+                    "https://youtu.be/yfoY53QXEnI", // CSS كامل للمبتدئين
+                    "https://youtu.be/1PnVor36_40", // تعلم CSS في ساعة
+                    "https://youtu.be/3tLb3i7GB38", // Flexbox كامل
+                    "https://youtu.be/9zBsdzdE4sM", // CSS Grid كامل
+                    "https://youtu.be/z3biFxZIJOQ"  // تأثيرات CSS
+                ]
+            },
+            js: {
+                name: "JavaScript",
+                colorClass: "js",
+                icon: "🅹",
+                description: "لغة برمجة نصية للتحكم في صفحات الويب",
+                tasks: [
+                    "كتابة أول سكريبت",
+                    "تعريف المتغيرات",
+                    "استخدام الشروط",
+                    "إنشاء دوال",
+                    "التعامل مع المصفوفات"
+                ],
+                rewards: [20, 25, 30, 35, 40],
+                videoLinks: [
+                    "https://youtu.be/PkZNo7MFNFg", // JavaScript للمبتدئين
+                    "https://youtu.be/W6NZfCO5SIk", // تعلم JS في ساعة
+                    "https://youtu.be/3PHXvlpOkf4", // مشاريع JS للمبتدئين
+                    "https://youtu.be/jS4aFq5-91M", // ES6 كامل
+                    "https://youtu.be/2md4HQNRqJA"  // JavaScript متقدم
+                ]
+            },
+            
+            // لغات البرمجة العامة
+            python: {
+                name: "Python",
+                colorClass: "python",
+                icon: "🐍",
+                description: "لغة برمجة عالية المستوى سهلة التعلم",
+                tasks: [
+                    "تركيب بايثون وأول برنامج",
+                    "الهياكل الأساسية",
+                    "الدوال والوحدات",
+                    "البرمجة الكائنية",
+                    "مشروع بايثون"
+                ],
+                rewards: [20, 25, 30, 35, 40],
+                videoLinks: [
+                    "https://youtu.be/rfscVS0vtbw", // Python للمبتدئين
+                    "https://youtu.be/_uQrJ0TkZlc", // Python كامل
+                    "https://youtu.be/t8pPdKYpowI", // مشاريع Python
+                    "https://youtu.be/JJmcL1N2KQs", // Python متقدم
+                    "https://youtu.be/8DvywoWv6fI"  // Python لعلوم البيانات
+                ]
+            },
+            java: {
+                name: "Java",
+                colorClass: "java",
+                icon: "☕",
+                description: "لغة برمجة قوية للبرامج والتطبيقات",
+                tasks: [
+                    "تركيب JDK وأول برنامج",
+                    "المفاهيم الكائنية",
+                    "الواجهات والوراثة",
+                    "معالجة الاستثناءات",
+                    "مشروع تطبيق جافا"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/eIrMbAQSU34", // Java للمبتدئين
+                    "https://youtu.be/grEKMHGYyns", // Java كامل
+                    "https://youtu.be/UmnCZ7-9yDY", // مشاريع Java
+                    "https://youtu.be/hBh_CC5y8-s", // Java متقدم
+                    "https://youtu.be/7UqQk6lB4xU"  // Java Spring
+                ]
+            },
+            cpp: {
+                name: "C++",
+                colorClass: "cpp",
+                icon: "➕",
+                description: "لغة برمجة قوية للأداء العالي",
+                tasks: [
+                    "تركيب أول برنامج",
+                    "استخدام cout و cin",
+                    "أنواع البيانات",
+                    "الجمل الشرطية",
+                    "الحلقات التكرارية"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/vLnPwxZdW4Y", // C++ للمبتدئين
+                    "https://youtu.be/8jLOx1hD3_o", // C++ كامل
+                    "https://youtu.be/_bYFu9mBnr4", // مشاريع C++
+                    "https://youtu.be/Rub-JsjMhWY", // C++ متقدم
+                    "https://youtu.be/8AOww9pGfS0"  // C++ للألعاب
+                ]
+            },
+            csharp: {
+                name: "C#",
+                colorClass: "csharp",
+                icon: "♯",
+                description: "لغة برمجة متعددة الاستخدامات من مايكروسوفت",
+                tasks: [
+                    "تركيب Visual Studio",
+                    "أساسيات C#",
+                    "البرمجة الكائنية",
+                    "واجهات المستخدم",
+                    "مشروع تطبيق C#"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/GhQdlIFylQ8", // C# للمبتدئين
+                    "https://youtu.be/gfkTfcpWqAY", // C# كامل
+                    "https://youtu.be/I4I5XzyhF9w", // مشاريع C#
+                    "https://youtu.be/8FmBEN0XZyI", // C# متقدم
+                    "https://youtu.be/6WXgZb0MUPo"  // Unity مع C#
+                ]
+            },
+            
+            // لغات ويب إضافية
+            php: {
+                name: "PHP",
+                colorClass: "php",
+                icon: "🐘",
+                description: "لغة برمجة نصية لخوادم الويب",
+                tasks: [
+                    "تركيب بيئة PHP",
+                    "كتابة أول سكريبت",
+                    "المتغيرات والنصوص",
+                    "الشروط والحلقات",
+                    "الاتصال بقاعدة بيانات"
+                ],
+                rewards: [20, 25, 30, 35, 40],
+                videoLinks: [
+                    "https://youtu.be/OK_JCtrrv-c", // PHP للمبتدئين
+                    "https://youtu.be/2eebptXfEvw", // PHP كامل
+                    "https://youtu.be/72U5Af8KUpA", // مشاريع PHP
+                    "https://youtu.be/4eZ_0dD5hJU", // PHP مع MySQL
+                    "https://youtu.be/6EukZDFE_Zg"  // Laravel
+                ]
+            },
+            ruby: {
+                name: "Ruby",
+                colorClass: "ruby",
+                icon: "💎",
+                description: "لغة برمجة ديناميكية مفتوحة المصدر",
+                tasks: [
+                    "تركيب روبي",
+                    "كتابة أول برنامج",
+                    "المتغيرات والثوابت",
+                    "الشروط والحلقات",
+                    "إنشاء تطبيق ويب بسيط"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/t_ispmWmdjY", // Ruby للمبتدئين
+                    "https://youtu.be/Dji9ALCgfpM", // Ruby كامل
+                    "https://youtu.be/fn9Y76NawjE", // مشاريع Ruby
+                    "https://youtu.be/fmyvWz5TUWg", // Ruby on Rails
+                    "https://youtu.be/B3Fbujmgo60"  // Ruby متقدم
+                ]
+            },
+            
+            // لغات الجوال
+            swift: {
+                name: "Swift",
+                colorClass: "swift",
+                icon: "🕊️",
+                description: "لغة برمجة لتطبيقات iOS و macOS",
+                tasks: [
+                    "تركيب Xcode",
+                    "كتابة أول برنامج",
+                    "المتغيرات والثوابت",
+                    "الشروط والحلقات",
+                    "إنشاء تطبيق iOS بسيط"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/comQ1-x2a1Q", // Swift للمبتدئين
+                    "https://youtu.be/FcsY1YPBwzQ", // Swift كامل
+                    "https://youtu.be/aiXvvL1wNUc", // مشاريع Swift
+                    "https://youtu.be/7CqIqZ9uZQk", // SwiftUI
+                    "https://youtu.be/MrT_CX6WZ2g"  // Swift متقدم
+                ]
+            },
+            kotlin: {
+                name: "Kotlin",
+                colorClass: "kotlin",
+                icon: "🅺",
+                description: "لغة برمجة حديثة لتطبيقات Android",
+                tasks: [
+                    "تركيب Android Studio",
+                    "كتابة أول برنامج",
+                    "المتغيرات والثوابت",
+                    "الشروط والحلقات",
+                    "إنشاء تطبيق Android بسيط"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/EExSSotojVI", // Kotlin للمبتدئين
+                    "https://youtu.be/F9UC9DY-vIU", // Kotlin كامل
+                    "https://youtu.be/BBWyXo-3JGQ", // مشاريع Kotlin
+                    "https://youtu.be/MYH5F3vITOI", // Kotlin مع Android
+                    "https://youtu.be/8L2KZxQe7oY"  // Kotlin متقدم
+                ]
+            },
+            dart: {
+                name: "Dart",
+                colorClass: "dart",
+                icon: "🎯",
+                description: "لغة برمجة لتطوير تطبيقات متعددة المنصات",
+                tasks: [
+                    "تركيب Dart SDK",
+                    "أساسيات اللغة",
+                    "البرمجة الكائنية",
+                    "الوظائف غير المتزامنة",
+                    "مشروع Dart"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/5xlVP04905w", // Dart للمبتدئين
+                    "https://youtu.be/Ej_Pcr4uC2Q", // Dart كامل
+                    "https://youtu.be/6t7F67uxetk", // مشاريع Dart
+                    "https://youtu.be/x0uinJvhNxI", // Flutter مع Dart
+                    "https://youtu.be/6Pv2kF0kQlU"  // Dart متقدم
+                ]
+            },
+            flutter: {
+                name: "Flutter",
+                colorClass: "flutter",
+                icon: "📱",
+                description: "إطار عمل لتطوير تطبيقات متعددة المنصات",
+                tasks: [
+                    "تركيب Flutter SDK",
+                    "أول تطبيق Flutter",
+                    "واجهات المستخدم",
+                    "إدارة الحالة",
+                    "مشروع Flutter كامل"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/1gDhl4leEzA", // Flutter للمبتدئين
+                    "https://youtu.be/x0uinJvhNxI", // Flutter كامل
+                    "https://youtu.be/pTJJsmejUOQ", // مشاريع Flutter
+                    "https://youtu.be/VPvVD8t02U8", // Flutter مع Firebase
+                    "https://youtu.be/6Pv2kF0kQlU"  // Flutter متقدم
+                ]
+            },
+            
+            // لغات أخرى
+            go: {
+                name: "Go",
+                colorClass: "go",
+                icon: "🅶",
+                description: "لغة برمجة من تطوير جوجل",
+                tasks: [
+                    "تركيب Go",
+                    "كتابة أول برنامج",
+                    "المتغيرات والثوابت",
+                    "الشروط والحلقات",
+                    "إنشاء خادم ويب بسيط"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/YS4e4q9oBaU", // Go للمبتدئين
+                    "https://youtu.be/yyUHQIec83I", // Go كامل
+                    "https://youtu.be/1mxHqY1Yf1k", // مشاريع Go
+                    "https://youtu.be/7aYI4h5tP5I", // Go متقدم
+                    "https://youtu.be/7aYI4h5tP5I"  // Go للويب
+                ]
+            },
+            rust: {
+                name: "Rust",
+                colorClass: "rust",
+                icon: "🦀",
+                description: "لغة برمجة نظامية آمنة وسريعة",
+                tasks: [
+                    "تركيب Rust",
+                    "كتابة أول برنامج",
+                    "المتغيرات والثوابت",
+                    "الشروط والحلقات",
+                    "إنشاء تطبيق نظامي بسيط"
+                ],
+                rewards: [35, 40, 45, 50, 55],
+                videoLinks: [
+                    "https://youtu.be/ygL_xcavzQ4", // Rust للمبتدئين
+                    "https://youtu.be/5QnM9OStg3E", // Rust كامل
+                    "https://youtu.be/6rcTSxPJ6Bw", // مشاريع Rust
+                    "https://youtu.be/9Q0D7CSBq4U", // Rust متقدم
+                    "https://youtu.be/zF34dRivLOw"  // Rust للأنظمة
+                ]
+            },
+            r: {
+                name: "R",
+                colorClass: "r",
+                icon: "📊",
+                description: "لغة برمجة للإحصاء وتحليل البيانات",
+                tasks: [
+                    "تركيب R Studio",
+                    "أساسيات اللغة",
+                    "الهياكل البياناتية",
+                    "الرسوم البيانية",
+                    "تحليل بيانات حقيقي"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/_V8eKsto3Ug", // R للمبتدئين
+                    "https://youtu.be/eDrhZb2onWY", // R كامل
+                    "https://youtu.be/ANMuuq502rE", // تحليل البيانات بـ R
+                    "https://youtu.be/mZmZt-f5Z1Y", // R للإحصاء
+                    "https://youtu.be/7GZ4Z7HX71E"  // R متقدم
+                ]
+            },
+            scala: {
+                name: "Scala",
+                colorClass: "scala",
+                icon: "⚡",
+                description: "لغة برمجة وظيفية وكائنية التوجه",
+                tasks: [
+                    "تركيب Scala",
+                    "أساسيات اللغة",
+                    "البرمجة الوظيفية",
+                    "الكائنات والصفوف",
+                    "مشروع Scala"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/-8V6bMjThNo", // Scala للمبتدئين
+                    "https://youtu.be/DzFt0YkZo8M", // Scala كامل
+                    "https://youtu.be/1hYiDmdj-C0", // مشاريع Scala
+                    "https://youtu.be/6x4sBSEBCbE", // Scala مع Spark
+                    "https://youtu.be/3jg1AheF4n0"  // Scala متقدم
+                ]
+            },
+            perl: {
+                name: "Perl",
+                colorClass: "perl",
+                icon: "🐪",
+                description: "لغة برمجة للنصوص والتطبيقات العامة",
+                tasks: [
+                    "تركيب Perl",
+                    "أساسيات اللغة",
+                    "التعامل مع النصوص",
+                    "التعامل مع الملفات",
+                    "مشروع Perl"
+                ],
+                rewards: [20, 25, 30, 35, 40],
+                videoLinks: [
+                    "https://youtu.be/WEghIXs8F6c", // Perl للمبتدئين
+                    "https://youtu.be/5KxVXiF7Jj8", // Perl كامل
+                    "https://youtu.be/5KxVXiF7Jj8", // مشاريع Perl
+                    "https://youtu.be/QcLqbqZkK5g", // Perl للنصوص
+                    "https://youtu.be/1W5kF4g1F3Y"  // Perl متقدم
+                ]
+            },
+            
+            // أطر عمل الويب
+            react: {
+                name: "React",
+                colorClass: "react",
+                icon: "⚛️",
+                description: "مكتبة جافاسكريبت لبناء واجهات المستخدم",
+                tasks: [
+                    "إنشاء أول تطبيق React",
+                    "المكونات الأساسية",
+                    "إدارة الحالة",
+                    "التوجيه في React",
+                    "مشروع React كامل"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/w7ejDZ8SWv8", // React للمبتدئين
+                    "https://youtu.be/bMknfKXIFA8", // React كامل
+                    "https://youtu.be/ly3m6mv5qvg", // مشاريع React
+                    "https://youtu.be/4UZrsTqkcW4", // React مع Redux
+                    "https://youtu.be/Xcet6msf3eE"  // React متقدم
+                ]
+            },
+            angular: {
+                name: "Angular",
+                colorClass: "angular",
+                icon: "🅰️",
+                description: "إطار عمل لتطبيقات الويب من جوجل",
+                tasks: [
+                    "إنشاء أول تطبيق Angular",
+                    "المكونات الأساسية",
+                    "الخدمات والحقن",
+                    "التوجيه في Angular",
+                    "مشروع Angular كامل"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/3qBXWUpoPHo", // Angular للمبتدئين
+                    "https://youtu.be/Fdf5aTYRW0E", // Angular كامل
+                    "https://youtu.be/3dHNOWTI7H8", // مشاريع Angular
+                    "https://youtu.be/5WuanDv5Mok", // Angular مع Firebase
+                    "https://youtu.be/W-QOF0i8x-8"  // Angular متقدم
+                ]
+            },
+            vue: {
+                name: "Vue.js",
+                colorClass: "vue",
+                icon: "🖖",
+                description: "إطار عمل تقدمي لبناء واجهات المستخدم",
+                tasks: [
+                    "إنشاء أول تطبيق Vue",
+                    "المكونات الأساسية",
+                    "إدارة الحالة",
+                    "التوجيه في Vue",
+                    "مشروع Vue كامل"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/FXpIoQ_rT_c", // Vue للمبتدئين
+                    "https://youtu.be/qZXt1Aom3Cs", // Vue كامل
+                    "https://youtu.be/I_xLMmNeLDY", // مشاريع Vue
+                    "https://youtu.be/4deVCNJq3qc", // Vue مع Firebase
+                    "https://youtu.be/AnpOozVWYyw"  // Vue متقدم
+                ]
+            },
+            nodejs: {
+                name: "Node.js",
+                colorClass: "nodejs",
+                icon: "🟢",
+                description: "بيئة تشغيل جافاسكريبت من جانب الخادم",
+                tasks: [
+                    "تركيب Node.js",
+                    "أول تطبيق Node",
+                    "إنشاء خادم ويب",
+                    "التعامل مع قواعد البيانات",
+                    "مشروع Node.js كامل"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/TlB_eWDSMt4", // Node.js للمبتدئين
+                    "https://youtu.be/Oe421EPjeBE", // Node.js كامل
+                    "https://youtu.be/zb3Qk8SG5Ms", // مشاريع Node.js
+                    "https://youtu.be/1NrHkjlWVhM", // Node.js مع Express
+                    "https://youtu.be/7UQZ1qVfpls"  // Node.js متقدم
+                ]
+            },
+            
+            // مواد كلية الحسابات والمعلومات
+            database: {
+                name: "قواعد البيانات",
+                colorClass: "database",
+                icon: "🗃️",
+                description: "تصميم وإدارة قواعد البيانات",
+                tasks: [
+                    "مقدمة لقواعد البيانات",
+                    "لغة SQL الأساسية",
+                    "التصميم العلائقي",
+                    "التطبيع والعلاقات",
+                    "مشروع قاعدة بيانات"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/HXV3zeQKqGY", // SQL للمبتدئين
+                    "https://youtu.be/7S_tz1z_5bA", // قواعد البيانات كاملة
+                    "https://youtu.be/ztHopE5Wnpc", // MySQL كامل
+                    "https://youtu.be/p3qvj9hO_Bo", // تصميم قواعد البيانات
+                    "https://youtu.be/5OdVJbNCSso"  // SQL متقدم
+                ]
+            },
+            algorithms: {
+                name: "الخوارزميات",
+                colorClass: "algorithms",
+                icon: "⚙️",
+                description: "تصميم وتحليل الخوارزميات",
+                tasks: [
+                    "تحليل التعقيد الزمني",
+                    "الخوارزميات الترتيبية",
+                    "الخوارزميات البحثية",
+                    "الخوارزميات الجشعة",
+                    "مشروع تطبيقي"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/09_LlHjoEiY", // الخوارزميات للمبتدئين
+                    "https://youtu.be/RBSGKlAvoiM", // هياكل البيانات والخوارزميات
+                    "https://youtu.be/8hly31xKli0", // خوارزميات الترتيب
+                    "https://youtu.be/pV2kpPD66nE", // تحليل الخوارزميات
+                    "https://youtu.be/nYqW8vZnKVE"  // خوارزميات متقدمة
+                ]
+            },
+            networks: {
+                name: "شبكات الحاسوب",
+                colorClass: "networks",
+                icon: "🌐",
+                description: "أساسيات شبكات الحاسوب",
+                tasks: [
+                    "مقدمة في الشبكات",
+                    "نموذج OSI و TCP/IP",
+                    "بروتوكولات الشبكات",
+                    "أمن الشبكات",
+                    "مشروع شبكة محاكاة"
+                ],
+                rewards: [25, 30, 35, 40, 45],
+                videoLinks: [
+                    "https://youtu.be/3QhU9jd03a0", // شبكات الحاسوب للمبتدئين
+                    "https://youtu.be/qiQR5rTSshw", // أساسيات الشبكات
+                    "https://youtu.be/IPvYjXCsTg8", // نموذج OSI و TCP/IP
+                    "https://youtu.be/qiQR5rTSshw", // بروتوكولات الشبكات
+                    "https://youtu.be/bjYfO1PhK2s"  // أمن الشبكات
+                ]
+            },
+            os: {
+                name: "نظم التشغيل",
+                colorClass: "os",
+                icon: "💻",
+                description: "مبادئ نظم التشغيل",
+                tasks: [
+                    "مقدمة في نظم التشغيل",
+                    "إدارة العمليات",
+                    "إدارة الذاكرة",
+                    "أنظمة الملفات",
+                    "مشروع محاكاة"
+                ],
+                rewards: [35, 40, 45, 50, 55],
+                videoLinks: [
+                    "https://youtu.be/vBURTt97EkA", // نظم التشغيل للمبتدئين
+                    "https://youtu.be/7Dz3DfWg5Uc", // أساسيات نظم التشغيل
+                    "https://youtu.be/RozoeWzT7IM", // إدارة العمليات والذاكرة
+                    "https://youtu.be/bkSWJJZNgf8", // أنظمة الملفات
+                    "https://youtu.be/6Tz2w5LN3J0"  // نظم التشغيل متقدم
+                ]
+            },
+            ai: {
+                name: "الذكاء الاصطناعي",
+                colorClass: "ai",
+                icon: "🧠",
+                description: "أساسيات الذكاء الاصطناعي",
+                tasks: [
+                    "مقدمة في الذكاء الاصطناعي",
+                    "تعلم الآلة الأساسي",
+                    "الشبكات العصبية",
+                    "معالجة اللغات الطبيعية",
+                    "مشروع ذكاء اصطناعي"
+                ],
+                rewards: [40, 45, 50, 55, 60],
+                videoLinks: [
+                    "https://youtu.be/JMZLxBOxr5I", // الذكاء الاصطناعي للمبتدئين
+                    "https://youtu.be/aircAruvnKk", // تعلم الآلة
+                    "https://youtu.be/7sB052Pz0kQ", // الشبكات العصبية
+                    "https://youtu.be/CMrHM8a3hqw", // معالجة اللغات الطبيعية
+                    "https://youtu.be/i_LwzRVP7bg"  // مشاريع الذكاء الاصطناعي
+                ]
+            },
+            security: {
+                name: "أمن المعلومات",
+                colorClass: "security",
+                icon: "🔒",
+                description: "مبادئ أمن الحاسوب",
+                tasks: [
+                    "مقدمة في الأمن السيبراني",
+                    "التشفير الأساسي",
+                    "أمن الشبكات",
+                    "اختبار الاختراق",
+                    "مشروع أمني"
+                ],
+                rewards: [35, 40, 45, 50, 55],
+                videoLinks: [
+                    "https://youtu.be/inWWhr5tnEA", // أمن المعلومات للمبتدئين
+                    "https://youtu.be/2VSNO6Lud6A", // أساسيات الأمن السيبراني
+                    "https://youtu.be/LUJckX8JZx8", // التشفير وأمن الشبكات
+                    "https://youtu.be/3Kq1MIfTWCE", // اختبار الاختراق
+                    "https://youtu.be/2B9LZRg0QyE"  // أمن المعلومات متقدم
+                ]
+            },
+            math: {
+                name: "الرياضيات الحاسوبية",
+                colorClass: "math",
+                icon: "🧮",
+                description: "الرياضيات الأساسية لعلوم الحاسب",
+                tasks: [
+                    "الجبر الخطي الأساسي",
+                    "الاحتمالات والإحصاء",
+                    "المنطق الرياضي",
+                    "التحليل العددي",
+                    "مشروع تطبيقي"
+                ],
+                rewards: [20, 25, 30, 35, 40],
+                videoLinks: [
+                    "https://youtu.be/L3LMbpZIKhQ", // الرياضيات الحاسوبية
+                    "https://youtu.be/kjBOesZCoqc", // الجبر الخطي
+                    "https://youtu.be/xPlN0T4fg6E", // الاحتمالات والإحصاء
+                    "https://youtu.be/2SpuBqvNjHI", // المنطق الرياضي
+                    "https://youtu.be/QhQ4m5g2fhA"  // التحليل العددي
+                ]
+            },
+            ds: {
+                name: "هياكل البيانات",
+                colorClass: "ds",
+                icon: "📊",
+                description: "هياكل البيانات الأساسية",
+                tasks: [
+                    "المصفوفات والقوائم",
+                    "المكدس والطابور",
+                    "الأشجار والرسوم البيانية",
+                    "خوارزميات البحث والترتيب",
+                    "مشروع هياكل بيانات"
+                ],
+                rewards: [30, 35, 40, 45, 50],
+                videoLinks: [
+                    "https://youtu.be/RBSGKlAvoiM", // هياكل البيانات
+                    "https://youtu.be/0IAPZzGSbME", // المصفوفات والقوائم
+                    "https://youtu.be/WjI4dK5jfK4", // الأشجار والرسوم البيانية
+                    "https://youtu.be/PgBzjlCcFvc", // خوارزميات البحث
+                    "https://youtu.be/6pV2IF9fgA8"  // تطبيقات هياكل البيانات
+                ]
+            }
+        };
+        
+        // الشارات المتاحة
+        const availableBadges = [
+            { id: "beginner", name: "المبتدئ", icon: "👶", requirement: 3, description: "أكمل 3 مهام في أي لغة" },
+            { id: "web-developer", name: "مطور ويب", icon: "🌐", requirement: 5, courses: ["html", "css", "js"], description: "أكمل مهام في تطوير الويب" },
+            { id: "mobile-developer", name: "مطور جوال", icon: "📱", requirement: 4, courses: ["swift", "kotlin", "flutter", "dart"], description: "أكمل مهام في تطوير الجوال" },
+            { id: "data-scientist", name: "عالم بيانات", icon: "📊", requirement: 4, courses: ["python", "r", "math", "ai"], description: "أكمل مهام في علوم البيانات" },
+            { id: "backend-developer", name: "مطور خلفية", icon: "⚙️", requirement: 4, courses: ["java", "python", "php", "nodejs"], description: "أكمل مهام في برمجة الخلفية" },
+            { id: "cs-student", name: "طالب حاسوب", icon: "🎓", requirement: 5, courses: ["cpp", "algorithms", "os", "networks", "database"], description: "أكمل مهام في مواد الحاسوب" },
+            { id: "expert", name: "خبير", icon: "🏆", requirement: 10, description: "أكمل 10 مهام في مختلف المجالات" },
+            { id: "polyglot", name: "متعدد اللغات", icon: "🌍", requirement: 5, description: "تعلم 5 لغات برمجة مختلفة" },
+            { id: "top-student", name: "الطالب المثالي", icon: "👑", requirement: 20, description: "أكمل 20 مهمة في جميع المواد" }
+        ];
+        
+        // تهيئة مهام مكتملة لكل مادة
+        Object.keys(allCourses).forEach(course => {
+            player.completedTasks[course] = 0;
+        });
+        
+        // تحديث واجهة اللاعب
+        function updatePlayerUI() {
+            document.getElementById("level").textContent = player.level;
+            document.getElementById("xp").textContent = player.xp;
+            document.getElementById("xp-bar").style.width = `${(player.xp % 100)}%`;
+            
+            // حساب الكورسات المكتملة
+            let completedCourses = 0;
+            Object.values(player.completedTasks).forEach(count => {
+                if (count > 0) completedCourses++;
+            });
+            document.getElementById("completed-courses").textContent = completedCourses;
+            
+            updateBadges();
+            updateCourses();
+        }
+        
+        // تحديث عرض الشارات
+        function updateBadges() {
+            const badgesContainer = document.getElementById("badges-container");
+            badgesContainer.innerHTML = "";
+            
+            availableBadges.forEach(badge => {
+                const hasBadge = player.badges.includes(badge.id);
+                const badgeElement = document.createElement("div");
+                badgeElement.className = `badge ${hasBadge ? '' : 'locked-badge'}`;
+                badgeElement.innerHTML = `
+                    ${badge.icon}
+                    <div class="badge-tooltip">
+                        ${badge.name}<br>
+                        ${badge.description}
+                        ${hasBadge ? '<br><span style="color:var(--green)">(مكتسبة)</span>' : ''}
+                    </div>
+                `;
+                
+                badgesContainer.appendChild(badgeElement);
+            });
+        }
+        
+        // تحديث عرض المواد
+        function updateCourses() {
+            const coursesContainer = document.getElementById("courses-container");
+            coursesContainer.innerHTML = "";
+            
+            Object.entries(allCourses).forEach(([courseId, course]) => {
+                const isUnlocked = player.unlockedCourses.includes(courseId);
+                const completedTasks = player.completedTasks[courseId] || 0;
+                const totalTasks = course.tasks.length;
+                const progressPercent = (completedTasks / totalTasks) * 100;
+                
+                const courseCard = document.createElement("div");
+                courseCard.className = `course-card ${isUnlocked ? '' : 'locked'}`;
+                courseCard.innerHTML = `
+                    <h3 class="${course.colorClass}">${course.icon} ${course.name}</h3>
+                    <p>${course.description}</p>
+                    <p>المهام المكتملة: ${completedTasks}/${totalTasks}</p>
+                    <div class="course-progress">
+                        <div class="course-progress-fill" style="width: ${progressPercent}%; background-color: ${getComputedStyle(document.documentElement).getPropertyValue(`--${course.colorClass}`)}"></div>
+                    </div>
+                    ${isUnlocked ? `
+                        <button class="btn btn-start" onclick="startCourse('${courseId}')">
+                            <i class="fas fa-play"></i> بدء المهمة
+                        </button>
+                        <div class="video-links">
+                            <button class="btn btn-video" onclick="window.open('${course.videoLinks[0]}', '_blank')">
+                                <i class="fas fa-video"></i> شرح 1
+                            </button>
+                            <button class="btn btn-video2" onclick="window.open('${course.videoLinks[1]}', '_blank')">
+                                <i class="fas fa-video"></i> شرح 2
+                            </button>
+                            <button class="btn btn-video3" onclick="window.open('${course.videoLinks[2]}', '_blank')">
+                                <i class="fas fa-video"></i> شرح 3
+                            </button>
+                            <button class="btn btn-video4" onclick="window.open('${course.videoLinks[3]}', '_blank')">
+                                <i class="fas fa-video"></i> شرح 4
+                            </button>
+                            <button class="btn btn-video5" onclick="window.open('${course.videoLinks[4]}', '_blank')">
+                                <i class="fas fa-video"></i> شرح 5
+                            </button>
+                        </div>
+                    ` : `
+                        <div class="locked-info">
+                            <i class="fas fa-lock"></i> مقفلة - تحتاج إلى مستوى ${getUnlockLevel(courseId)}
+                        </div>
+                    `}
+                `;
+                
+                coursesContainer.appendChild(courseCard);
+            });
+        }
+        
+        // الحصول على المستوى المطلوب لفتح المادة
+        function getUnlockLevel(courseId) {
+            const courseOrder = [
+                // المستوى 1 (مفتوحة افتراضيا)
+                'html', 'css', 'js', 'cpp', 'math',
+                
+                // المستوى 2
+                'python', 'java', 'database', 'ds', 'algorithms',
+                
+                // المستوى 3
+                'php', 'csharp', 'networks', 'os', 'security',
+                
+                // المستوى 4
+                'ruby', 'swift', 'kotlin', 'ai', 'react',
+                
+                // المستوى 5
+                'go', 'rust', 'r', 'angular', 'vue',
+                
+                // المستوى 6
+                'dart', 'flutter', 'scala', 'perl', 'nodejs'
+            ];
+            
+            const index = courseOrder.indexOf(courseId);
+            return Math.floor(index / 5) + 2;
+        }
+        
+        // بدء مهمة في مادة
+        function startCourse(courseId) {
+            const course = allCourses[courseId];
+            if (!course) return;
+            
+            const nextTaskIndex = player.completedTasks[courseId];
+            if (nextTaskIndex >= course.tasks.length) {
+                alert(`🎉 لقد أكملت جميع مهام ${course.name}!`);
+                return;
+            }
+            
+            const taskName = course.tasks[nextTaskIndex];
+            const reward = course.rewards[nextTaskIndex];
+            
+            if (confirm(`هل تريد بدء المهمة: ${taskName}؟\nالمكافأة: ${reward} نقطة`)) {
+                simulateTaskCompletion(courseId, taskName, reward);
+            }
+        }
+        
+        // محاكاة إكمال المهمة
+        function simulateTaskCompletion(courseId, taskName, reward) {
+            const loadingMessages = [
+                "جاري تحضير المادة التعليمية...",
+                "جارٍ تجهيز البيئة العملية...",
+                "جاري تحميل الموارد...",
+                "أنت تعمل على المهمة...",
+                "جاري تصحيح المهمة..."
+            ];
+            
+            let currentMessage = 0;
+            const interval = setInterval(() => {
+                alert(loadingMessages[currentMessage]);
+                currentMessage++;
+                
+                if (currentMessage >= loadingMessages.length) {
+                    clearInterval(interval);
+                    completeTask(courseId, reward);
+                    alert(`🎊 أحسنت! لقد أكملت المهمة: ${taskName}\nحصلت على ${reward} نقطة!`);
+                    checkForNewUnlocks();
+                }
+            }, 1000);
+        }
+        
+        // إكمال المهمة
+        function completeTask(courseId, reward) {
+            player.completedTasks[courseId]++;
+            player.xp += reward;
+            
+            // ترقية المستوى
+            if (player.xp >= player.level * 100) {
+                player.level++;
+                alert(`🎯 تهانينا! لقد وصلت إلى المستوى ${player.level}!`);
+            }
+            
+            // التحقق من الشارات
+            checkForBadges();
+            
+            updatePlayerUI();
+        }
+        
+        // التحقق من الشارات المكتسبة
+        function checkForBadges() {
+            availableBadges.forEach(badge => {
+                if (!player.badges.includes(badge.id)) {
+                    let requirementsMet = false;
+                    
+                    if (badge.courses) {
+                        // شارات لها متطلبات مواد محددة
+                        const completedInRequiredCourses = badge.courses
+                            .map(course => player.completedTasks[course] || 0)
+                            .reduce((a, b) => a + b, 0);
+                        
+                        requirementsMet = completedInRequiredCourses >= badge.requirement;
+                    } else {
+                        //
