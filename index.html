@@ -1271,4 +1271,46 @@
                         
                         requirementsMet = completedInRequiredCourses >= badge.requirement;
                     } else {
-                        //
+                        // شارات عامة
+                        const totalCompletedTasks = Object.values(player.completedTasks)
+                            .reduce((a, b) => a + b, 0);
+                        
+                        requirementsMet = totalCompletedTasks >= badge.requirement;
+                    }
+                    
+                    if (requirementsMet) {
+                        player.badges.push(badge.id);
+                        alert(`🏆 تهانينا! لقد حصلت على شارة ${badge.name}!`);
+                    }
+                }
+            });
+        }
+        
+        // فتح مواد جديدة عند الوصول إلى مستويات معينة
+        function checkForNewUnlocks() {
+            const allCourseIds = Object.keys(allCourses);
+            let newUnlocks = false;
+            
+            allCourseIds.forEach(courseId => {
+                if (!player.unlockedCourses.includes(courseId)) {
+                    const requiredLevel = getUnlockLevel(courseId);
+                    if (player.level >= requiredLevel) {
+                        player.unlockedCourses.push(courseId);
+                        newUnlocks = true;
+                        alert(`🔓 لقد فتحت مادة ${allCourses[courseId].name} الجديدة!`);
+                    }
+                }
+            });
+            
+            if (newUnlocks) {
+                updateCourses();
+            }
+        }
+        
+        // تهيئة اللعبة
+        window.onload = function() {
+            updatePlayerUI();
+        };
+    </script>
+</body>
+</html>
